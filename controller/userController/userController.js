@@ -20,9 +20,21 @@ const getUsers = async (req, res) => {
     res.send(response);
   } 
 
+  const loginUser = async (req,res)=>{
+    console.log("Login user with body ",req.body);
+    const response = await userUtils.getUserByEmail(req.body.email,req.body.password);
+    if(!response){
+        res.status(400).json({
+            error:"Email or password not found"
+        })
+    }
+    res.send(response);
+  }
+
   module.exports = {
     getUsers,
-    createUser
+    createUser,
+    loginUser
   
   };
   
