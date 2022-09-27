@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const { options } = require('../routes/routes');
 
 const userSchema = mongoose.Schema(
   {
@@ -20,6 +21,17 @@ const userSchema = mongoose.Schema(
           throw new Error('Invalid email');
         }
       },
+    },
+    mobile:{
+        type:String,
+        required:true,
+        unique:true,
+        trim:true,
+        // validate(value) {
+        //   if (!validator.isMobilePhoneLocales(value)) {
+        //     throw new Error('Invalid moblie number');
+        //   }
+        // },
     },
     password: {
       type: String,

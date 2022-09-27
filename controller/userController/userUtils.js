@@ -2,17 +2,15 @@ const User = require('../../model/userModel');
 
 
 const createUser = async (userBody) => {
-
-
-    //   if (await User.isEmailTaken(userBody.email)) {
-    //     console.log("Error in email address")
-    //     throw "error";
-    // }
     return User.create(userBody);
 };
 
 const getUserByEmail = async (email) => {
     return User.findOne({ email });
+  };
+
+const getUserByPhoneNumber = async (phoneNumber) => {
+    return User.findOne({ phoneNumber });
   };
 
 const getUserList = async () => {

@@ -15,9 +15,33 @@ var bodyParser = require('body-parser');
 //   });
 // });
 // app.configure(function(){
-  app.use(bodyParser.json());                        
-  // });
-app.use('/v1',routes)
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.json());
+
+app.use(function (req, res, next) {
+  console.log("req is === ",req.headers.authorization)
+  if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
+    jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPIs', function (err, decode) {
+      if (err) req.user = undefined;
+      req.user = decode;
+      next();
+    });
+  } else {
+    req.user = undefined;
+    next();
+  }
+});
+
+
+
+
+
+// });
+app.use('/v1', routes)
+app.use(function (req, res) {
+  res.status(404).send({ url: req.originalUrl + ' not found' })
+});
 // app.use(express.cookieParser());
 // app.use(express.session({ secret: "keyboard cat" }));
 // app.set('view engine', 'ejs');
@@ -53,5 +77,5 @@ process.on('SIGTERM', () => {
 
 const server = require("http").createServer(app);
 server.listen(3001, () => {
-    console.log("API server listion on PORT::", 3001);
+  console.log("API server listion on PORT::", 3001);
 });
