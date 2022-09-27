@@ -65,21 +65,24 @@ const loginUser = async (req, res) => {
     })
   }
   console.log("check Password == ", req.body.password);
+
   console.log("hash Password == ", response.password);
-  const isPasswordMatch = await bcrypt.compare(req.body.password, response.password, function (err, result) {
+  
+  await bcrypt.compare(req.body.password, response.password, function (err, result) {
     if (err) { throw (err); }
     console.log(result);
 
     return result
 
   });
-  console.log("isPassword Match ====",isPasswordMatch);
-  if (!isPasswordMatch) {
+
+  // console.log("isPassword Match ====",isPasswordMatch);
+  // if (!isPasswordMatch) {
     
-    return res.status(400).json({
-      error: "Password is invalid"
-    })
-  }
+  //   return res.status(400).json({
+  //     error: "Password is invalid"
+  //   })
+  // }
 
   res.send({
     message: "Login Successfull",
@@ -90,6 +93,7 @@ const loginUser = async (req, res) => {
   // res.send(response);
 
 }
+
 exports.profile = function (req, res, next) {
   if (req.user) {
     res.send(req.user);
