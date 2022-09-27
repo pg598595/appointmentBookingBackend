@@ -67,14 +67,14 @@ const loginUser = async (req, res) => {
   console.log("check Password == ", req.body.password);
 
   console.log("hash Password == ", response.password);
-  
-  await bcrypt.compare(req.body.password, response.password, function (err, result) {
-    if (err) { throw (err); }
-    console.log(result);
 
-    return result
+  // await bcrypt.compare(req.body.password, response.password, function (err, result) {
+  //   if (err) { throw (err); }
+  //   console.log(result);
 
-  });
+  //   return result
+
+  // });
 
   // console.log("isPassword Match ====",isPasswordMatch);
   // if (!isPasswordMatch) {
@@ -94,6 +94,35 @@ const loginUser = async (req, res) => {
 
 }
 
+const getDoctorsListing = async (req, res) => {
+  const user = await userUtils.getSpecficiationListing(req.body.specification);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Doctors not found');
+  }
+
+  // try {
+
+  //     console.log("header toekn is ==",req.header("Authorization"))
+
+  //     const token = req.header("Authorization");
+  //     // print("header toekn is ==",req.header)
+
+
+  //     const verified = jwt.verify(token, jwtSecretKey);
+  //     if(verified){
+  //         return res.send("Successfully Verified");
+  //     }else{
+  //         // Access Denied
+  //         return res.status(401).send(error);
+  //     }
+  // // } catch (error) {
+  // //     // Access Denied
+  // //     return res.status(401).send(error);
+  // // }
+
+  res.send(user);
+}
+
 exports.profile = function (req, res, next) {
   if (req.user) {
     res.send(req.user);
@@ -106,7 +135,8 @@ exports.profile = function (req, res, next) {
 module.exports = {
   getUsers,
   createUser,
-  loginUser
+  loginUser,
+  getDoctorsListing
 
 };
 

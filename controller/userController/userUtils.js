@@ -17,8 +17,15 @@ const getUserList = async () => {
     return User.find()
 };
 
+const getSpecficiationListing = async (specification) => {
+  console.log("specification===",specification)
+  return User.find({ specification });
+};
+
+
 module.exports = {
     createUser,
     getUserList,
     getUserByEmail,
+    getSpecficiationListing
 };
