@@ -68,29 +68,20 @@ const loginUser = async (req, res) => {
 
   console.log("hash Password == ", response.password);
 
-  // await bcrypt.compare(req.body.password, response.password, function (err, result) {
-  //   if (err) { throw (err); }
-  //   console.log(result);
+  const isPasswordMatch = await bcrypt.compare(req.body.password, response.password);
 
-  //   return result
-
-  // });
-
-  // console.log("isPassword Match ====",isPasswordMatch);
-  // if (!isPasswordMatch) {
+  console.log("isPassword Match ====",isPasswordMatch);
+  if (!isPasswordMatch) {
     
-  //   return res.status(400).json({
-  //     error: "Password is invalid"
-  //   })
-  // }
+    return res.status(400).json({
+      error: "Password is invalid"
+    })
+  }
 
   res.send({
     message: "Login Successfull",
     token: jwt.sign({ email: response.email, fullName: response.name, _id: response._id }, 'RESTFULAPIs')
   });
-
-
-  // res.send(response);
 
 }
 
@@ -99,39 +90,9 @@ const getDoctorsListing = async (req, res) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Doctors not found');
   }
-
-  // try {
-
-  //     console.log("header toekn is ==",req.header("Authorization"))
-
-  //     const token = req.header("Authorization");
-  //     // print("header toekn is ==",req.header)
-
-
-  //     const verified = jwt.verify(token, jwtSecretKey);
-  //     if(verified){
-  //         return res.send("Successfully Verified");
-  //     }else{
-  //         // Access Denied
-  //         return res.status(401).send(error);
-  //     }
-  // // } catch (error) {
-  // //     // Access Denied
-  // //     return res.status(401).send(error);
-  // // }
-
   res.send(user);
 }
 
-exports.profile = function (req, res, next) {
-  if (req.user) {
-    res.send(req.user);
-    next();
-  }
-  else {
-    return res.status(401).json({ message: 'Invalid token' });
-  }
-};
 module.exports = {
   getUsers,
   createUser,

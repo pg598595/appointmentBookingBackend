@@ -5,6 +5,7 @@ const routes = require('./routes/routes')
 const app = express();
 var bodyParser = require('body-parser');
 
+const jwt = require('jsonwebtoken');
 
 // let server;
 
@@ -19,17 +20,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-app.use(function (req, res, next) {
+app.use(async function (req, res, next) {
   console.log("req is === ",req.headers.authorization)
-  if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
-    jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPIs', function (err, decode) {
-      if (err) req.user = undefined;
-      req.user = decode;
-      next();
+
+  if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0]=="JWT") {
+    // console.log("here req === === ",req);
+    jwt.verify(req.headers.authorization, 'RESTFULAPIs', function (err, decode) {
+      console.log("decode === ", decode);
+      console.log("err === ", err);
+
+      if (err)
+        res.status(405).send({ error: "Authentication Failed" });
+      else
+        next();
+      // next();
     });
   } else {
     req.user = undefined;
     next();
+    // res.status(405).send({ error: "Headers not provided" })
   }
 });
 
