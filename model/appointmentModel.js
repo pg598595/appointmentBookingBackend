@@ -4,20 +4,20 @@ const { options } = require('../routes/routes');
 
 const appointmentSchema = mongoose.Schema(
   {
-    createdBy:{
-        type: mongoose.Schema.Types.ObjectId
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId
     },
     createdFor: {
-        type: mongoose.Schema.Types.ObjectId
-      },
-    appointmentTime:{
-        type:Date
+      type: mongoose.Schema.Types.ObjectId
     },
-    appointmentStatus:{
-        type:String
+    appointmentTime: {
+      type: Date
     },
-  
-    
+    appointmentStatus: {
+      type: String
+    },
+
+
   },
   {
     timestamps: true,

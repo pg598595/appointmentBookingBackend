@@ -22,16 +22,16 @@ const userSchema = mongoose.Schema(
         }
       },
     },
-    mobile:{
-        type:String,
-        required:true,
-        unique:true,
-        trim:true,
-        // validate(value) {
-        //   if (!validator.isMobilePhoneLocales(value)) {
-        //     throw new Error('Invalid moblie number');
-        //   }
-        // },
+    mobile: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      // validate(value) {
+      //   if (!validator.isMobilePhoneLocales(value)) {
+      //     throw new Error('Invalid moblie number');
+      //   }
+      // },
     },
     password: {
       type: String,
@@ -49,28 +49,28 @@ const userSchema = mongoose.Schema(
     type: {
       type: mongoose.Schema.Types.ObjectId
     },
-    address:{
-        type:String,
-        required:true,
-        trim:true
+    address: {
+      type: String,
+      required: true,
+      trim: true
     },
     specification: {
-        type: mongoose.Schema.Types.ObjectId
-      },
-    availableFrom:{
-        type:String
+      type: mongoose.Schema.Types.ObjectId
     },
-    availableTo:{
-        type:String
+    availableFrom: {
+      type: String
     },
-    fees:{
-        type: mongoose.Schema.Types.Decimal128,
-        default:0
+    availableTo: {
+      type: String
     },
-    token:{
-        type:String,
+    fees: {
+      type: mongoose.Schema.Types.Decimal128,
+      default: 0
+    },
+    token: {
+      type: String,
     }
-    
+
   },
   {
     timestamps: true,
