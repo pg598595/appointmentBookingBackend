@@ -20,7 +20,6 @@ const getUserList = async () => {
 };
 
 const getSpecficiationListing = async (specification) => {
-  console.log("specification===", specification)
   return User.find({ specification });
 };
 
