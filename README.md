@@ -20,3 +20,7 @@ Steps 4
 - This will the the project and you can call the api in localhost 
 - Url will be : "http://localhost:3001/"
 - Add routes and call the api with request and response 
+
+Step 5 
+
+- Check with postman collection : https://www.getpostman.com/collections/9d469183340aa9de3575
