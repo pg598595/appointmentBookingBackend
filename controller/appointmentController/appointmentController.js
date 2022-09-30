@@ -21,12 +21,14 @@ res.send(response);
 }
 
 const modifyAppointment = async (req, res) => {
-    const{id}=req.params;
-    const _id =ObjectId(id);
-  req.collection.modifyAppointment({_id})
-  .then(result => res.json(result))
-  .catch(error => res.send(error));
-  res.send(response);
+  console.log("Req Params==",req.headers.id)
+    const{id}=req.headers.id;
+    // const _id =ObjectId(id);
+    const response = await appointmentUtils.modifyAppointment(req.body,id);
+    if (!response) {
+      throw new ApiError(httpStatus.NOT_FOUND, response);
+    }
+    res.send(response);
 }
 
 const cancelAppointment = async (req, res) => {

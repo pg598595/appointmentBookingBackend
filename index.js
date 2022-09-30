@@ -7,15 +7,7 @@ var bodyParser = require('body-parser');
 
 const jwt = require('jsonwebtoken');
 
-// let server;
 
-// mongoose.connect("mongodb+srv://priyankagupta43:Priyanka%40123@123%40cluster0.gmxkcno.mongodb.net/?retryWrites=true&w=majority").then(() => {
-//   console.log('Connected to MongoDB');
-//   server = app.listen(5006, () => {
-//     console.log(`Listening to port 5006`);
-//   });
-// });
-// app.configure(function(){
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
@@ -24,7 +16,6 @@ app.use(async function (req, res, next) {
   console.log("req is === ",req.headers.authorization)
 
   if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0]=="JWT") {
-    // console.log("here req === === ",req);
     jwt.verify(req.headers.authorization, 'RESTFULAPIs', function (err, decode) {
       console.log("decode === ", decode);
       console.log("err === ", err);
@@ -33,12 +24,10 @@ app.use(async function (req, res, next) {
         res.status(405).send({ error: "Authentication Failed" });
       else
         next();
-      // next();
     });
   } else {
     req.user = undefined;
     next();
-    // res.status(405).send({ error: "Headers not provided" })
   }
 });
 

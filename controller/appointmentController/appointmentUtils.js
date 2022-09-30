@@ -10,9 +10,24 @@ const createAppointment = async (appointmentBody) => {
 };
 
 
-const modifyAppointment = async (appointmentBody) => {
-  console.log("New Appointment dateTime===", NewAppointmentTime)
-  return appointment.findOne({ appointmentBody });
+const modifyAppointment = async (appointmentBody, id) => {
+  console.log("Update Appointment Data===", appointmentBody)
+  console.log("Appointment ID is ===", id)
+
+  return appointment.findByIdAndUpdate({ _id: bson.ObjectId(id) }, appointmentBody).then(
+    function (err, result) {
+      console.log(error);
+      console.log(result);
+
+      if (err) {
+        res.send(err)
+      }
+      else {
+        res.send(result)
+      }
+  
+    }
+  )
 };
 
 const cancelAppointment = async (appointmentBody) => {
