@@ -16,7 +16,7 @@ Step 3
 
 Steps 4
 
-- Then run "npde index.js"
+- Then run "node index.js"
 - This will the the project and you can call the api in localhost 
 - Url will be : "http://localhost:3001/"
 - Add routes and call the api with request and response 
